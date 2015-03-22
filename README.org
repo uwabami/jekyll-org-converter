@@ -1,0 +1,37 @@
+# -*- mode: org; coding: utf-8-unix; indent-tabs-mode: nil -*-
+* Add Org-mode support into Jekyll, with Org-mode options as YAML Front Matter
+** What's This?
+   This library add [[http://orgmode.org/][Org mode]] support.
+   You can use Org-mode file as Jekyll contents without YAML Front Matter.
+
+   This library parse your org-mode file's =+OPTIONS=, and use as YAML Front Matter.
+   Thus you don't need YAML Front Matter when you write articles/posts as Org file.
+** Depends
+   - jekyll
+   - org-ruby
+** Usage
+   - Download this files into your plugin directory ( normally, =_plugins= ).
+   - (optional) Create =_html_tags.yml= into your top directory, if you want to custom tags.
+** limitation
+   If you want to upload GitHub pages, you can't use any plugins.
+   Thus please consider other methods, simply export org file as html, and use jekyll as normal way.
+** License
+   #+BEGIN_EXAMPLE
+      Permission is hereby granted, free of charge, to any person obtaining a
+      copy of this software and associated documentation files (the "Software"),
+      to deal in the Software without restriction, including without limitation
+      the rights to use, copy, modify, merge, publish, distribute, sublicense,
+      and/or sell copies of the Software, and to permit persons to whom the
+      Software is furnished to do so, subject to the following conditions:
+      .
+      The above copyright notice and this permission notice shall be included
+      in all copies or substantial portions of the Software.
+      .
+      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+      OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+      MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+      IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+      CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+      TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+      SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+   #+END_EXAMPLE
