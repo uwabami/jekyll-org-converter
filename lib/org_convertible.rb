@@ -11,9 +11,9 @@ module Jekyll
       if name =~ /org$/
         content = File.read(site.in_source_dir(base, name),
                             merged_file_read_opts(opts))
-        if File.exist?('html_tags.yml')
+        if File.exist?('_html_tags.yml')
           org_content = Orgmode::Parser.new(content,
-                                            markup_file: 'html_tags.yml')
+                                            markup_file: '_html_tags.yml')
         else
           org_content = Orgmode::Parser.new(content)
         end
@@ -21,6 +21,7 @@ module Jekyll
         org_content.in_buffer_settings.each_pair do |k, v|
           yaml_front_matter.merge!(k.downcase => v)
         end
+        yaml_front_matter = yaml_front_matter.delete_if { |k, v| k == 'html' }
         self.data = SafeYAML.load(yaml_front_matter.to_yaml + "---\n")
         if yaml_front_matter.key?('liquid')
           self.content = org_content.to_html
