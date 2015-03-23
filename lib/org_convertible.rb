@@ -12,25 +12,28 @@ module Jekyll
         content = File.read(site.in_source_dir(base, name),
                             merged_file_read_opts(opts))
         if File.exist?('_html_tags.yml')
-          org_content = Orgmode::Parser.new(content,
+          org = Orgmode::Parser.new(content,
                                             markup_file: '_html_tags.yml')
         else
-          org_content = Orgmode::Parser.new(content)
+          org = Orgmode::Parser.new(content)
         end
         yaml_front_matter = {}
-        org_content.in_buffer_settings.each_pair do |k, v|
+        org.in_buffer_settings.each_pair do |k, v|
           yaml_front_matter.merge!(k.downcase => v)
         end
+        # remove '#+HTML'
         yaml_front_matter = yaml_front_matter.delete_if { |k, v| k == 'html' }
         self.data = SafeYAML.load(yaml_front_matter.to_yaml + "---\n")
+        # remove '#+TITLE' avoid double exporting
+        org.in_buffer_settings.delete_if {|k, v| k == 'TITLE' }
         if yaml_front_matter.key?('liquid')
-          self.content = org_content.to_html
+          self.content = org.to_html
           self.content = self.content.gsub('&#8216;', "'")
           self.content = self.content.gsub('&#8217;', "'")
         else
           self.content = <<ORG
 {% raw %}
-#{org_content.to_html}
+#{org.to_html}
 {% endraw %}
 ORG
         end
