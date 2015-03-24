@@ -1,7 +1,10 @@
 #! /usr/bin/env ruby
 # -*- mode: ruby; coding: utf-8 -*-
+#
+# Monkey Patch: Add support org search link
+#
 require 'org-ruby'
-require 'pp'
+
 module Orgmode
   # monkey patch Orgmode::to_html inline_formatter
   class HtmlOutputBuffer < OutputBuffer
@@ -87,6 +90,16 @@ module Orgmode
       escape_string! str
       Orgmode.special_symbols_to_html str
       str = @re_help.restore_code_snippets str
+    end
+
+    alias_method :_orig_normalize_lang, :normalize_lang
+    def normalize_lang(lang)
+      case lang
+      when 'conf'
+        'ruby'
+      else
+        _orig_normalize_lang(lang)
+      end
     end
   end
 end
