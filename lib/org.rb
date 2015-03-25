@@ -19,7 +19,7 @@ module Jekyll
 
     def convert(content)
       # ad hoc file link conversion
-      content.gsub(/<a href="([^(http:\/\/|https:\/\/)]\S+)\.org/,
+      content.gsub(/<a href="([^(http:\/\/|https:\/\/|mailto:)]\S+)\.org/,
                    "<a href=\"\\1.html")
     end
   end
