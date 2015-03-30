@@ -23,6 +23,8 @@ module Jekyll
         end
         # remove '#+HTML'
         yaml_front_matter = yaml_front_matter.delete_if { |k, v| k == 'html' }
+        # remove '#+LATEX'
+        yaml_front_matter = yaml_front_matter.delete_if { |k, v| k == 'latex' }
         self.data = SafeYAML.load(yaml_front_matter.to_yaml + "---\n")
         # remove '#+TITLE' avoid double exporting
         org.in_buffer_settings.delete_if {|k, v| k == 'TITLE' }
