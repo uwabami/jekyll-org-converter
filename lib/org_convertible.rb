@@ -34,9 +34,7 @@ module Jekyll
           self.content = self.content.gsub('&#8217;', "'")
         else
           self.content = <<ORG
-{% raw %}
-#{org.to_html}
-{% endraw %}
+#{org.to_html.gsub('{','&#123;').gsub('{','&#125;')}
 ORG
         end
       else
