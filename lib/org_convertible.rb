@@ -9,11 +9,11 @@ module Jekyll
 
     def read_yaml(base, name, opts = {})
       if name =~ /org$/
-        content = File.read(site.in_source_dir(base, name),
-                            merged_file_read_opts(opts))
+        content = File.read(@path || site.in_source_dir(base, name),
+                            Utils.merged_file_read_opts(site, opts))
         if File.exist?('_html_tags.yml')
           org = Orgmode::Parser.new(content,
-                                            markup_file: '_html_tags.yml')
+                                    markup_file: '_html_tags.yml')
         else
           org = Orgmode::Parser.new(content)
         end
@@ -41,5 +41,6 @@ ORG
         _orig_read_yaml(base, name, opts)
       end
     end
+
   end
 end

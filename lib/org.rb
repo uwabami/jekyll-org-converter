@@ -3,24 +3,26 @@
 require 'org-ruby'
 
 module Jekyll
-  # Add New Converter handling org-mode
-  # main logic -> @see org_convertible.rb
-  class OrgConverter < Converter
-    safe true
-    priority :low
+  module Converters
+    class Org < Converter
+      safe true
+      priority :low
 
-    def matches(ext)
-      ext =~ /^\.org$/i
+      def matches(ext)
+        ext =~ /^\.org$/i
+      end
+
+      def output_ext(ext)
+        '.html'
+      end
+
+      def convert(content)
+        # ad hoc file link conversion
+        content.gsub(/<a href="([^(http:\/\/|https:\/\/|mailto:)]\S+)\.org/,
+                     "<a href=\"\\1.html").gsub(/<table>/,'<table class="table table-striped">')
+      end
+
     end
 
-    def output_ext(ext)
-      '.html'
-    end
-
-    def convert(content)
-      # ad hoc file link conversion
-      content.gsub(/<a href="([^(http:\/\/|https:\/\/|mailto:)]\S+)\.org/,
-                   "<a href=\"\\1.html").gsub(/<table>/,'<table class="table table-striped">')
-    end
   end
 end
