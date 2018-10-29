@@ -96,7 +96,9 @@ module Orgmode
     def normalize_lang(lang)
       case lang
       when 'conf'
-        'ruby'
+        'squidconf'
+      when 'japanese-latex'
+        'latex'
       else
         _orig_normalize_lang(lang)
       end
